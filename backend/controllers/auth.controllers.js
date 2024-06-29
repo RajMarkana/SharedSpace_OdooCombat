@@ -13,10 +13,15 @@ const pool = mysql.createPool({
     database: process.env.DB_NAME,
 });
 
+
+// pool.query('SELECT * FROM `users`',(error, results)=>{
+//     console.log(results);
+// })
+
 exports.signup = (req, res) => {
     try {
         // Data fetch
-        const { name, email, password, role } = req.body;
+        const { username, email, password, role } = req.body;
 
         // Check for existing user
         const query = 'SELECT * FROM users WHERE email = ?';
@@ -39,8 +44,8 @@ exports.signup = (req, res) => {
                     }
 
                     // Insert new user into database
-                    const insertQuery = 'INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)';
-                    pool.query(insertQuery, [name, email, hashedPassword, role], (insertError, insertResults) => {
+                    const insertQuery = 'INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)';
+                    pool.query(insertQuery, [username, email, hashedPassword, role], (insertError, insertResults) => {
                         if (insertError) {
                             console.error('Error inserting user into database:', insertError);
                             return res.status(500).json({ error: 'Internal server error' });

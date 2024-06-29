@@ -5,8 +5,7 @@ const app = express();
 
 app.use(bodyParser.json());
 const userRoutes = require("./routes/user.routes");
-app.use('/api/signup', userRoutes)
-app.use('/api/login', userRoutes)
+app.use('/api', userRoutes)
 
 require("./config/database").connect;
 
