@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require("bcrypt");
 require('dotenv').config();
 
+
 // Create connection pool for MySQL
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
@@ -87,7 +88,7 @@ exports.login = (req, res) => {
             }
 
             const user = results[0];
-
+            
             // Check if password matches using bcrypt
             bcrypt.compare(password, user.password, (err, result) => {
                 if (err) {
@@ -109,9 +110,10 @@ exports.login = (req, res) => {
 
                 // Set the token as a cookie
                 res.cookie('token', token, { httpOnly: true });
+                console.log(user);
 
                 // Optionally, you can return additional user information or just the token
-                return res.status(200).json({ message: 'Login successful', token });
+                return res.status(200).json({ message: 'Login successful', token,userRole : user.role});
             });
         });
     } catch (err) {
