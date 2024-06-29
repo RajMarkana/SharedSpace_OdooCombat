@@ -1,4 +1,14 @@
-import React from 'react'
+
+import React, { useState } from "react";
+import { FaLocationDot, FaCheck } from "react-icons/fa6";
+import { AiOutlineNumber } from "react-icons/ai";
+import { RiMoneyRupeeCircleFill } from "react-icons/ri";
+import { IoSearchSharp } from "react-icons/io5";
+import { ImCross } from "react-icons/im";
+import { MdEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+
+
 
 const Dashboard = () => {
   return (
@@ -31,6 +41,54 @@ const Dashboard = () => {
       <div className='mt-10'>
         <h1 className='text-2xl font-semibold'>Recently Added Resource</h1>
       </div>
+
+      <div className="mt-10 flex gap-8 justify-between flex-wrap mb-8">
+     
+            <div
+              
+              className="w-fit bg-white rounded-2xl overflow-hidden hover:shadow-2xl transition-all"
+            >
+              <div className="md:flex">
+                <div className="md:flex-shrink-0">
+                  <img
+                    className="h-48 w-full object-cover md:w-48"
+                    src="../hero.png"
+                    alt="People working on laptops"
+                  />
+                </div>
+                <div className="p-8">
+                  <div className="uppercase tracking-wide text-sm text-primary font-semibold">
+                  Category
+
+                  </div>
+                  <div className="block mt-1 text-lg leading-tight font-medium text-black">
+                  Lyft launching cross-platform
+                  </div>
+                  <div className="mt-4 gap-2 items-center justify-between">
+                    <div className="flex justify-between">
+                      <div className="flex gap-2 items-center justify-center">
+                        <FaLocationDot />changa
+                      </div>
+                      <div className="flex gap-2 items-center justify-center">
+                        <AiOutlineNumber /> 50
+                      </div>
+                      <div className="flex gap-2 items-center justify-center">
+                        <RiMoneyRupeeCircleFill /> 1999
+                      </div>
+                    </div>
+                    <div className="flex gap-2 items-center">
+                      <FaCheck />
+                      {true ? "Available" : "Not Available"}
+                    </div>
+                  </div>
+
+              
+                </div>
+              </div>
+            </div>
+          
+        </div>
+
 
     </>
   )

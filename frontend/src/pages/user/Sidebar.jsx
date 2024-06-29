@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { HiHome, HiBookOpen, HiChatAlt, HiLogout } from 'react-icons/hi';
 import { PiExam } from "react-icons/pi";
+import { GrResources } from "react-icons/gr";
 
 const Sidebar = () => {
     const location = useLocation();
@@ -53,7 +54,7 @@ const Sidebar = () => {
 
                             >
                                 <div className="flex items-center space-x-2">
-                                    <PiExam className="w-5 h-5" />
+                                    <GrResources className="w-5 h-5" />
                                     <span>View Resource</span>
                                 </div>
                             </Link>

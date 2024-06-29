@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { RiMenu3Line,RiCloseFill } from "react-icons/ri";
 import { Link } from 'react-router-dom';
 
@@ -6,6 +6,24 @@ function Navbar() {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const toggleMenu = () => setIsOpen(!isOpen);
+
+	const [IsLogedIn, setIsLogedIn] = useState(false);
+
+	const handleLogedIN  = () => {
+	
+		if(localStorage.getItem('token')){
+			setIsLogedIn(true);
+		}
+		else{
+			setIsLogedIn(false);
+		}
+	}
+
+	useEffect(() => {
+		
+		handleLogedIN();
+	}, []);
+
 
 	return (
 		<nav className=" sticky top-0   z-50">
@@ -41,9 +59,14 @@ function Navbar() {
 
 				{/* Call to Action Button */}
 
+				{!IsLogedIn ? 
+				(
 				<Link to={"/login"} className="hidden md:block shadow-3xl text-zinc-100 bg-primary rounded-full px-4 py-2">
 					Login / Register
-				</Link>
+				</Link> ) : (<Link to={"/user"} className="hidden md:block shadow-3xl text-zinc-100 bg-primary rounded-full px-4 py-2">
+					Dashboard
+				</Link> )
+				}
 
       
 

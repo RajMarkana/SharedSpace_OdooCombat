@@ -1,45 +1,39 @@
 import React,{useState} from 'react'
 import Navbar from '../components/Navbar'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Register = () => {
 
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    handleLoggedInUser();
+  const [username, setUsername] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [role, setRole] = useState(null);
+
+  const handleSignup = async (e) => {
+     
+    
     try {
-      // console.log(username,password);
+      
       const response = await axios.post('http://localhost:3000/api/signup', {
         username,
         email,
         password,
         role
       });
-      // console.log(response);
-      if (response.status === 200) {
-        const { token, role } = response.data;
-        // console.log(response);
-        localStorage.setItem('token', token);
-        if (role === 'Student') {
-
-          toast.success("Login Successfully !")
-          navigate('/student');
-        } else if (role === 'Faculty') {
-          toast.success("Login Successfully !")
-          navigate('/faculty');
-        } else {
-          toast.error("Invalid User")
-        }
+      
+      if (response.status === 201) {
+        toast.success("Registered Successfully");
+        navigate("/login");
       } else {
-        toast.error("Login Failed !")
+        toast.error("Email Already Exits2");
       }
     } catch (error) {
-
-      toast.error("Invalid User")
+      toast.error("Email Already Exits1");
+      // console.log(error)
     }
   };
 
@@ -63,7 +57,7 @@ const Register = () => {
           </div>
 
           <div class="relative my-5 flex items-center">
-            <input name="text" value={username}
+            <input name="text"  value={username}
                   onChange={(e) => setUsername(e.target.value)} type="text" required class="w-full text-gray-800 text-sm border-b border-gray-300 focus:border-blue-600 px-2 py-3 outline-none" placeholder="Enter Username" />
             
           </div>
@@ -97,7 +91,8 @@ const Register = () => {
           <div class="mt-6">
             <label for="role">Register as :</label>
 
-            <select name="role" id="role">
+            <select onChange={(e)=>{setRole(e.target.value)}} required name="role" id="role">
+              <option value="user" selected disabled>Select</option>
               <option value="user">Resourcer</option>
               <option value="customer">Customer</option>
     
@@ -107,7 +102,7 @@ const Register = () => {
           
 
           <div class="mt-12">
-            <button onClick={()=>{handleLogin}} type="button" class="w-full py-2.5 px-4 text-sm font-semibold tracking-wider rounded-md text-white bg-primary focus:outline-none">
+            <button onClick={()=>{handleSignup()}} type="button" class="w-full py-2.5 px-4 text-sm font-semibold tracking-wider rounded-md text-white bg-primary focus:outline-none">
               Register
             </button>
             <p class="text-sm text-center mt-6">Already have an account ?  <Link to={"/login"} class="text-primary font-semibold hover:underline ml-1 whitespace-nowrap">Login here</Link></p>
